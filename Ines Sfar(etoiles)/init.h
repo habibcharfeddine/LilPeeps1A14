@@ -1,0 +1,21 @@
+
+#include "structs.h"
+
+/* Prototypes des fonctions utilisées */
+extern SDL_Surface *loadImage(char *name);
+extern void loadMap(char *name);
+extern void closeFont(TTF_Font *font);
+extern TTF_Font *loadFont(char *, int);
+extern void loadSong( char filename[200] );
+extern void loadSound(void);
+extern void freeSound(void);
+extern void changeLevel(void);
+
+
+extern Gestion jeu;
+extern Map map;
+extern TTF_Font *font;
+extern GameObject player;
+extern GameObject monster[MONSTRES_MAX];
+
+
