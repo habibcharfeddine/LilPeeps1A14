@@ -1,45 +1,38 @@
+#include <SDL/SDL.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_mixer.h>
+#include <SDL/SDL_ttf.h>
+
+#include "animation.h"
 
 
-#include "main.h"
+
+int main ()
+{  
 
 
-int main(int argc, char *argv[])
-{
-	unsigned int frameLimit = SDL_GetTicks() + 16;
-	int go;
-
-   	/* Initialisation de la SDL */
-	init("Wales");
-
-	/* Chargement des ressources (graphismes, sons) */
-	loadGame();
-
-	/* Appelle la fonction cleanup à la fin du programme */
-
-	atexit(cleanup);
-
-	go = 1;
-
-
-	/* Boucle infinie, principale, du jeu */
-
-	while (go == 1)
-	{
-
-		/* On prend on compte les input (clavier, joystick... */
-		getInput();
-
-		/* On affiche tout */
-		draw();
-
-		/* Gestion des 60 fps (1000ms/60 = 16.6 -> 16 */
-		delay(frameLimit);
-		frameLimit = SDL_GetTicks() + 16;
-
+	SDL_Surface *screen;
+	if ( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
+		fprintf( stderr,"Unable to init SDL" );
+		return 1;
+	}
+	atexit(SDL_Quit);
+   screen = SDL_SetVideoMode(800, 600, 32,SDL_HWSURFACE|SDL_DOUBLEBUF | SDL_SRCALPHA);
+	if ( !screen ) {
+		fprintf(stderr,"Unable to set /n");
+		return 1;
 	}
 
-	/* Exit */
+			SDL_WM_SetCaption("The lost ring",NULL);
 
-	exit(0);
+animation(screen);
+animation_coat(screen);
+load(screen);	
+menu(screen); 
+//jeu principal
+
+
+	return 0;
 }
-
