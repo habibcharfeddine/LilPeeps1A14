@@ -1,0 +1,1 @@
+gcc main.c jeux.c jeux.h -o prog -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf
