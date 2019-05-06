@@ -1,0 +1,17 @@
+
+
+#include "structs.h"
+
+enigme Init_Enigme();
+
+enigme Generate_Enigme(enigme e);
+
+int Resolution(enigme e,int x);
+
+void affichage_Enigme(enigme e,SDL_Surface *ecran);
+
+char * Replace_Hyphen(char *str);
+
+
+
+#endif // ENIGMES_H_INCLUDED

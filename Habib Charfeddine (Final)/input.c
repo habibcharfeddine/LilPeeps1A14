@@ -1,0 +1,269 @@
+/**
+* @file input.c
+* @brief input
+* @author lil peeps
+* READ KEYBOARD INPUTS
+*/
+
+#include "input.h"
+
+
+void getInput(void)
+{
+	SDL_Event event;
+
+	/* Keymapping : gère les appuis sur les touches et les enregistre
+	dans la structure input */
+
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+
+			case SDL_QUIT:
+				exit(0);
+			break;
+
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_ESCAPE:
+						exit(0);
+					break;
+
+					case SDLK_DELETE:
+						input.erase = 1;
+
+					break;
+
+					case SDLK_c:
+						input.jump = 1;
+		                        break;
+	
+                  			case SDLK_v:
+						input.attack = 1;
+                    			break;
+
+
+					case SDLK_LEFT:
+						input.left = 1;
+					break;
+
+					case SDLK_RIGHT:
+						input.right = 1;
+					break;
+
+					case SDLK_DOWN:
+						input.down = 1;
+						input2.down = 1;
+					break;
+
+					case SDLK_UP:
+						input.up = 1;
+						input2.up = 1;
+					break;
+
+
+					case SDLK_RETURN:
+						input.enter = 1;
+						input2.enter = 1;
+					break;
+
+
+					default:
+
+					break;
+
+					case SDLK_l:
+						input2.jump = 1;
+		                        break;
+	
+                  			case SDLK_m:
+						input2.attack = 1;
+                    			break;
+
+
+					case SDLK_o:
+						input2.left = 1;
+					break;
+
+					case SDLK_p:
+						input2.right = 1;
+					break;
+
+					
+				}
+			break;
+
+			case SDL_KEYUP:
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_DELETE:
+						input.erase = 0;
+					break;
+
+                    			case SDLK_c:
+						input.jump = 0;
+                    			break;
+
+                    			break;
+
+					case SDLK_LEFT:
+						input.left = 0;
+					break;
+
+					case SDLK_RIGHT:
+						input.right = 0;
+					break;
+
+					case SDLK_DOWN:
+						input.down = 0;
+					break;
+
+					case SDLK_UP:
+						input.up = 0;
+					break;
+
+					case SDLK_RETURN:
+						input.enter = 0;
+					break;
+
+                    			case SDLK_l:
+						input2.jump = 0;
+                    			break;
+
+                    			break;
+
+					case SDLK_o:
+						input2.left = 0;
+					break;
+
+					case SDLK_p:
+						input2.right = 0;
+					break;
+
+
+
+					default:
+					break;
+				}
+			break;
+
+		}
+
+	}
+}
+
+
+
+void getInput2(void)
+{
+	SDL_Event event;
+
+	/* Keymapping : gère les appuis sur les touches et les enregistre
+	dans la structure input */
+
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+
+			case SDL_QUIT:
+				exit(0);
+			break;
+
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_ESCAPE:
+						exit(0);
+					break;
+
+					case SDLK_DELETE:
+						input2.erase = 1;
+
+					break;
+
+					case SDLK_l:
+						input2.jump = 1;
+		                        break;
+	
+                  			case SDLK_m:
+						input2.attack = 1;
+                    			break;
+
+
+					case SDLK_o:
+						input2.left = 1;
+					break;
+
+					case SDLK_p:
+						input2.right = 1;
+					break;
+
+					case SDLK_DOWN:
+						input2.down = 1;
+					break;
+
+					case SDLK_UP:
+						input2.up = 1;
+					break;
+
+
+					case SDLK_RETURN:
+						input2.enter = 1;
+					break;
+
+
+					default:
+					break;
+				}
+			break;
+
+			case SDL_KEYUP:
+				switch (event.key.keysym.sym)
+				{
+					case SDLK_DELETE:
+						input2.erase = 0;
+					break;
+
+                    			case SDLK_l:
+						input2.jump = 0;
+                    			break;
+
+                    			break;
+
+					case SDLK_o:
+						input2.left = 0;
+					break;
+
+					case SDLK_p:
+						input2.right = 0;
+					break;
+
+					case SDLK_DOWN:
+						input2.down = 0;
+					break;
+
+					case SDLK_UP:
+						input2.up = 0;
+					break;
+
+					case SDLK_RETURN:
+						input2.enter = 0;
+					break;
+
+					default:
+					break;
+				}
+			break;
+
+		}
+
+	}
+}
+
+
+
+
+

@@ -1,8 +1,4 @@
-/**
-* @file animation.c
-* @brief Entities animation
-* @author lil peeps
-*/
+
 #include "animation.h"
 
 

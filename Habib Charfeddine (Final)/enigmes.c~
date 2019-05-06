@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "enigmes.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
+#include <SDL/SDL_image.h> 
+enigme Init_Enigme(enigme e)
+{
+ printf("init1");   
+  e.Question=NULL,e.Reponse1=NULL,e.Reponse2=NULL,e.Reponse3=NULL;       	
+    e.Question1 = (char *)malloc(sizeof(char) * 100 );
+    e.Answer1 =  (char *)malloc(sizeof(char) * 100 );
+    e.Answer2 =  (char *)malloc(sizeof(char) * 100 );
+    e.Answer3 =  (char *)malloc(sizeof(char) * 100 );
+    strcpy(e.Question1, "") ;
+    strcpy(e.Answer1, "") ;
+    strcpy(e.Answer2, "") ;
+    strcpy(e.Answer3, "") ;
+	TTF_Init() ;
+		
+    e.Font = TTF_OpenFont("arial.ttf",80);
+    e.InputUser = 0 ;
+    e.solution = 0 ;
+    e.QuestionPos.x = 0 ;
+    e.QuestionPos.y = 100 ;
+    e.Answer1Pos.x = 0 ;
+    e.Answer1Pos.y = 200 ;
+    e.Answer2Pos.x = 0 ;
+    e.Answer2Pos.y = 250 ;
+    e.Answer3Pos.x = 0 ;
+    e.Answer3Pos.y = 300 ;
+	  printf("init2");
+return e ;
+}
+char * Replace_Hyphen(char *str)
+{
+    int i, len = strlen(str);
+
+    for( i = 0; i < len; i++ )
+        if( str[i] == '/' )
+            str[i] = ' ' ;
+
+    return str ;
+}
+enigme Generate_Enigme(enigme e)
+{
+printf("generate1");
+    int i = rand() % 5 + 1 ;
+    char filename[50],tmp[4];
+printf("i = %d\n", i);
+
+switch(i)
+{case 1:strcpy(filename,"1.txt");break;
+case 2:strcpy(filename,"2.txt");break;
+case 3:strcpy(filename,"3.txt");break;
+case 4:strcpy(filename,"4.txt");break;
+case 5:strcpy(filename,"5.txt");break;
+}
+    FILE *f = fopen(filename, "r");
+	
+    fscanf(f, "%s", &e.Question1);
+    fscanf(f, "%s", &e.Answer1);
+    fscanf(f, "%s", &e.Answer2);
+    fscanf(f, "%s", &e.Answer3);
+    fscanf(f, "%s", &tmp);
+    e.solution=tmp[2];
+    e.Question1 = Replace_Hyphen( e.Question1) ;
+    e.Answer1 = Replace_Hyphen( e.Answer1 ) ;
+    e.Answer2 = Replace_Hyphen( e.Answer2 ) ;
+    e.Answer3 = Replace_Hyphen( e.Answer3 ) ;
+
+    fclose(f);
+printf("generate2");
+
+    return e ;
+}
+
+int Resolution(enigme e,int x)
+{
+	int vrai=0;
+	
+	if (e.solution == x)	
+		{vrai==1;}
+
+return vrai;
+}
+void affichage_Enigme(enigme e,SDL_Surface *ecran)
+{
+ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
+SDL_Color policeNoire = {0 ,0 ,0 };
+	SDL_Color policeBlanche = {255 ,255 ,255 };
+	SDL_Color policeRouge = {255 ,0 ,0 };
+	SDL_Color policeRouge1 = {101 ,27 ,29 };
+	e.Question= TTF_RenderText_Blended(e.Font,e.Question1,policeNoire);
+	e.Reponse1= TTF_RenderText_Blended(e.Font,e.Answer1,policeRouge1);
+	e.Reponse2= TTF_RenderText_Blended(e.Font,e.Answer2,policeRouge1);
+	e.Reponse3= TTF_RenderText_Blended(e.Font,e.Answer3,policeRouge1);	
+	SDL_BlitSurface(e.Question, NULL, ecran, &e.QuestionPos);
+	SDL_BlitSurface(e.Reponse1, NULL, ecran, &e.Answer1Pos);
+	SDL_BlitSurface(e.Reponse2, NULL, ecran, &e.Answer2Pos);
+	SDL_BlitSurface(e.Reponse3, NULL, ecran, &e.Answer3Pos); 
+TTF_CloseFont(e.Font);
+    SDL_FreeSurface(e.Question);
+}
